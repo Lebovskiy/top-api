@@ -1,11 +1,4 @@
-import {
-  Column,
-  Model,
-  Table,
-  DataType,
-  ForeignKey,
-  HasMany,
-} from 'sequelize-typescript';
+import { Column, Model, Table, DataType, HasMany } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Review } from './review.model';
 
@@ -13,7 +6,7 @@ import { Review } from './review.model';
 export class Course extends Model<Course> {
   @ApiProperty({ example: '1', description: 'Унікальний індифікатор' })
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
-  id: string;
+  id: number;
 
   @ApiProperty({ example: 'img.png', description: 'Фото курсу' })
   @Column({ type: DataType.STRING })

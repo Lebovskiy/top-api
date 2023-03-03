@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { Course, Review, Role, User } from './models';
+import { ReviewModule } from './modules/review/review.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { Course, Review, Role, User } from './models';
     CoursesModule,
     UsersModule,
     RolesModule,
+    ReviewModule,
   ],
   controllers: [],
   providers: [],

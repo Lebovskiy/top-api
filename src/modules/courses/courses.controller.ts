@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
@@ -6,7 +6,6 @@ import {
   GetCoursesResDto,
   GetOneCourseReqDto,
   GetOneCourseResDto,
-  DeleteOneReqDto,
 } from './dto';
 import { Course } from '../../models';
 
@@ -17,7 +16,7 @@ export class CoursesController {
   @ApiOperation({ summary: 'Створення курсу' })
   @ApiResponse({ status: 200, type: CreateCourseReqDto })
   @Post()
-  create(@Body() dto: CreateCourseReqDto): Promise<GetCoursesResDto> {
+  create(@Body() dto: CreateCourseReqDto): Promise<Course> {
     return this.courseService.create(dto);
   }
 
@@ -31,7 +30,7 @@ export class CoursesController {
   @ApiOperation({ summary: 'Отримати дані про всі курси' })
   @ApiResponse({ status: 200, type: [GetCoursesResDto] })
   @Get()
-  findAll(): Promise<GetCoursesResDto[]> {
+  findAll(): Promise<Course[]> {
     return this.courseService.findAll();
   }
 
