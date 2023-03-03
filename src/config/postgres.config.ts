@@ -1,5 +1,5 @@
 import * as process from 'node:process';
-import { CoursesModel } from '../models/courses.model';
+import { User, Course, Role, AuthModel, ReviewModel } from '../models';
 
 export const postgresConfig = {
   dialect: 'postgres' as const,
@@ -10,4 +10,4 @@ export const postgresConfig = {
   database: process.env.POSTGRES_DATABASE,
 };
 
-export const models = [CoursesModel];
+export const models = [User, Course, Role, AuthModel, ReviewModel];

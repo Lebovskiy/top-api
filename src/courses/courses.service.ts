@@ -1,27 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CoursesModel } from '../models/courses.model';
+import { Course } from '../models';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class CoursesService {
   constructor(
-    @InjectModel(CoursesModel)
-    private readonly coursesModel: typeof CoursesModel,
+    @InjectModel(Course)
+    private readonly courses: typeof Course,
   ) {}
 
   async create(dto): Promise<any> {
-    return this.coursesModel.create({ ...dto });
+    return this.courses.create({ ...dto });
   }
 
   async findAll(): Promise<any> {
-    return this.coursesModel.findAll();
+    return this.courses.findAll();
   }
 
   async findOne(id): Promise<any> {
-    return this.coursesModel.findOne({ where: { id } });
+    return this.courses.findOne({ where: { id } });
   }
 
   async delete(id): Promise<any> {
-    await this.coursesModel.destroy({ where: { id } });
+    await this.courses.destroy({ where: { id } });
   }
 }
