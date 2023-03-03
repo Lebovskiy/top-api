@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CoursesController } from './courses.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { CoursesModel } from '../models/courses.model';
+import { Course } from '../models';
 
 @Module({
   controllers: [CoursesController],
   providers: [CoursesService],
-  imports: [SequelizeModule.forFeature([CoursesModel])],
+  imports: [SequelizeModule.forFeature([Course])],
 })
 export class CoursesModule {}

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UsersModel } from '../models/users.model';
+import { User } from '../models';
 import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(UsersModel)
-    private readonly usersModel: typeof UsersModel,
+    @InjectModel(User)
+    private readonly usersModel: typeof User,
   ) {}
 
   async create(dto): Promise<any> {
