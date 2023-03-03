@@ -1,4 +1,4 @@
-export class AuthModel {
+export class Auth {
   email: string;
   hashPassword: string;
 }
