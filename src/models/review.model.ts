@@ -9,11 +9,11 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Course } from './course.model';
 
-@Table({ tableName: 'review' })
+@Table({ tableName: 'reviews' })
 export class Review extends Model<Review> {
   @ApiProperty({ example: '1', description: 'Унікальний індифікатор' })
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
-  id: string;
+  id: number;
 
   @ApiProperty({ example: 'Хуйово', description: 'Опис' })
   @Column({ type: DataType.STRING, allowNull: true })
@@ -30,5 +30,5 @@ export class Review extends Model<Review> {
   @ApiProperty({ example: '4.6', description: 'Рейтинг курсу' })
   @ForeignKey(() => Course)
   @Column({ type: DataType.UUID, allowNull: true })
-  courseId: string;
+  courseId: number;
 }

@@ -1,20 +1,25 @@
-import { Body, Controller, Delete, Param, Post, Get } from '@nestjs/common';
+import { Body, Controller, Param, Post, Get } from '@nestjs/common';
 import { Review } from '../../models';
+import { ReviewService } from './review.service';
+import { CreateReviewRequestDto } from './dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Review')
 @Controller('review')
 export class ReviewController {
-  @Post('create')
-  async create(@Body() dto: Omit<Review, '_id'>): Promise<any> {
-    return Promise;
-  }
-
-  @Delete(':id')
-  async delete(@Param(':id') id: string): Promise<any> {
-    return Promise;
+  constructor(private reviewService: ReviewService) {}
+  @Post()
+  async create(@Body() dto: CreateReviewRequestDto): Promise<Review> {
+    return this.reviewService.create(dto);
   }
 
   @Get('byProduct/:productId')
-  async getByProduct(@Param('productId') productId: string): Promise<any> {
-    return Promise;
+  async getByProductId(@Param('productId') productId: number): Promise<Review> {
+    return this.reviewService.findOne(productId);
+  }
+
+  @Get('')
+  async getAll(): Promise<Review[]> {
+    return this.reviewService.findAll();
   }
 }

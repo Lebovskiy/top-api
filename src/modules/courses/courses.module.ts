@@ -9,5 +9,6 @@ import { CourseRepository } from '../../repositories';
   controllers: [CoursesController],
   providers: [CoursesService, CourseRepository],
   imports: [SequelizeModule.forFeature([Course])],
+  exports: [CourseRepository, CoursesService],
 })
 export class CoursesModule {}
