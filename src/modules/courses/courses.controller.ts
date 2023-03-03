@@ -8,6 +8,7 @@ import {
   GetOneCourseResDto,
   DeleteOneReqDto,
 } from './dto';
+import { Course } from '../../models';
 
 @ApiTags('Courses')
 @Controller('courses')
@@ -17,14 +18,13 @@ export class CoursesController {
   @ApiResponse({ status: 200, type: CreateCourseReqDto })
   @Post()
   create(@Body() dto: CreateCourseReqDto): Promise<GetCoursesResDto> {
-    /// DTO на респонс окремо !!!!
     return this.courseService.create(dto);
   }
 
   @ApiOperation({ summary: 'Отримати дані про конкретний курс' })
   @ApiResponse({ status: 200, type: GetOneCourseResDto })
   @Get(':id')
-  get(@Param('id') id: GetOneCourseReqDto): Promise<GetOneCourseResDto> {
+  get(@Param('id') id: GetOneCourseReqDto): Promise<Course> {
     return this.courseService.findOne(id);
   }
 
@@ -35,10 +35,10 @@ export class CoursesController {
     return this.courseService.findAll();
   }
 
-  @ApiOperation({ summary: 'Видалити курс' })
-  @ApiResponse({ status: 200 })
-  @Delete(':id')
-  delete(@Param('id') id: DeleteOneReqDto): any {
-    return this.courseService.delete(id);
-  }
+  // @ApiOperation({ summary: 'Видалити курс' })
+  // @ApiResponse({ status: 200 })
+  // @Delete(':id')
+  // async delete(@Param('id') id: DeleteOneReqDto): Promise<void> {
+  //   await this.courseService.delete(id);
+  // }
 }

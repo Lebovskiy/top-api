@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { CoursesModule } from './courses/courses.module';
+import { CoursesModule } from './modules/courses/courses.module';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
-import { RolesModule } from './roles/roles.module';
-import { models } from './config/postgres.config';
+import { UsersModule } from './modules/users/users.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { Course, Review, Role, User } from './models';
 
 @Module({
   imports: [
@@ -18,7 +18,7 @@ import { models } from './config/postgres.config';
       username: 'postgres',
       password: process.env.POSTGRES_PASSWORD + '',
       database: process.env.POSTGRES_DATABASE,
-      ...models,
+      models: [User, Course, Role, Review],
     }),
     CoursesModule,
     UsersModule,
