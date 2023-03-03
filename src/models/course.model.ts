@@ -1,5 +1,13 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  DataType,
+  ForeignKey,
+  HasMany,
+} from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
+import { Review } from './review.model';
 
 @Table({ tableName: 'courses' })
 export class Course extends Model<Course> {
@@ -30,9 +38,8 @@ export class Course extends Model<Course> {
   @Column({ type: DataType.INTEGER, allowNull: true })
   credit: number;
 
-  @ApiProperty({ example: '4.6', description: 'Рейтинг курсу' })
-  @Column({ type: DataType.INTEGER, allowNull: true })
-  rating: number;
+  @HasMany(() => Review)
+  reviews: Review[];
 
   @ApiProperty({ example: 'Продукт про фотошоп', description: 'Опис курсу' })
   @Column({ type: DataType.STRING })
