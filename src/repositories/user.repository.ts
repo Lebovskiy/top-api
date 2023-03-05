@@ -9,7 +9,7 @@ export class UserRepository {
   ) {}
 
   async create(dto: CreateUserReqDto): Promise<User> {
-    return this.user.create(dto);
+    return this.user.create({ ...dto });
   }
 
   async findAll(): Promise<User[]> {
