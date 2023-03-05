@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Course } from './course.model';
+import { User } from './user.model';
 
 @Table({ tableName: 'reviews' })
 export class Review extends Model<Review> {
@@ -29,6 +30,18 @@ export class Review extends Model<Review> {
 
   @ApiProperty({ example: '4.6', description: 'Рейтинг курсу' })
   @ForeignKey(() => Course)
-  @Column({ type: DataType.UUID, allowNull: true })
+  @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: null })
   courseId: number;
+
+  @BelongsTo(() => User)
+  @ApiProperty({})
+  users: User;
+
+  @ApiProperty({
+    example: '2',
+    description: 'Угнікальний індефікатор користувача',
+  })
+  @ForeignKey(() => User)
+  @Column({ type: DataType.INTEGER, allowNull: true, defaultValue: null })
+  userId: number;
 }
