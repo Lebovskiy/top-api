@@ -5,6 +5,33 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
+      await queryInterface.createTable('users', {
+        id: {
+          type: Sequelize.DataTypes.INTEGER,
+          autoIncrement: true,
+          primaryKey: true
+        },
+        name: {
+          type: Sequelize.DataTypes.STRING,
+          allowNull: false
+        },
+        email: {
+          type: Sequelize.DataTypes.STRING,
+          allowNull: false,
+          unique: true
+        },
+        password: {
+          type: Sequelize.DataTypes.STRING,
+          allowNull: false,
+        },
+        createdAt: {
+          type: Sequelize.DATE,
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+        },
+      }, { transaction })
+
       await queryInterface.createTable('courses', {
         id: {
           type: Sequelize.DataTypes.INTEGER,
@@ -66,6 +93,15 @@ module.exports = {
             key: 'id'
           }
         },
+        userId: {
+          type: Sequelize.DataTypes.INTEGER,
+          allowNull: true,
+          defaultValue: null,
+          references: {
+            model: 'users',
+            key: 'id'
+          }
+        },
         description: {
           type: Sequelize.DataTypes.STRING,
           allowNull: true,
@@ -82,6 +118,7 @@ module.exports = {
           type: Sequelize.DATE,
         },
       }, { transaction })
+
       await transaction.commit()
     }
     catch (err){
