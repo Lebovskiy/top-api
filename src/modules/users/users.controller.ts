@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserReqDto, GetUserResDto, GetUserReqDto } from './dto';
+import { CreateUserReqDto, GetUserResDto } from './dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -25,7 +25,14 @@ export class UsersController {
   @ApiOperation({ summary: 'Отримання користувача' })
   @ApiResponse({ status: 200, type: GetUserResDto })
   @Get(':id')
-  findOne(@Param() id: GetUserReqDto): Promise<GetUserResDto> {
+  findOne(@Param('id') id: number): Promise<GetUserResDto> {
     return this.usersServices.findOne(id);
+  }
+
+  @ApiOperation({ summary: 'Отримання користувача' })
+  @ApiResponse({ status: 200, type: GetUserResDto })
+  @Get(':email')
+  findOneByEmail(@Body() dto): Promise<GetUserResDto> {
+    return this.usersServices.findOneByEmail(dto);
   }
 }

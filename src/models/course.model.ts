@@ -2,7 +2,7 @@ import { Column, Model, Table, DataType, HasMany } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Review } from './review.model';
 
-@Table({ tableName: 'courses' })
+@Table({ tableName: 'courses', timestamps: false })
 export class Course extends Model<Course> {
   @ApiProperty({ example: '1', description: 'Унікальний індифікатор' })
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
