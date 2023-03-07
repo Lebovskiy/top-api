@@ -3,6 +3,13 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import * as process from 'node:process';
 import { StrategiesEnum } from '../../enums/strategies.enum';
+
+interface JwtPayload {
+  sub: string;
+  iat: number;
+  exp: number;
+}
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(
   Strategy,
@@ -17,8 +24,8 @@ export class JwtStrategy extends PassportStrategy(
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload: JwtPayload): Promise<any> {
     console.log(payload);
-    return Promise.resolve({ name: payload.sub, username: payload.username });
+    return payload;
   }
 }

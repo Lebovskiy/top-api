@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
@@ -11,14 +16,17 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  //TODO: Types
   async login(dto): Promise<any> {
-    const { email, password } = dto;
-    const user = await this.userService.findOneByEmail(email);
-    if (!user) {
-      return new HttpException(
-        'Користувача не знаєденно',
-        HttpStatus.UNAUTHORIZED,
-      );
+    const { email: emailOrName, password } = dto;
+    const promises = Promise.all([
+      this.userService.findOneByEmail(emailOrName),
+      this.userService.findOneByName(emailOrName),
+    ]);
+    const [userByEmail, userByName] = await promises;
+    const user = userByName || userByEmail;
+    if (!userByName && !userByEmail) {
+      throw new UnauthorizedException('Користувача не знайденно');
     }
     const comparePassword = bcrypt.compareSync(password, user.password);
     if (!comparePassword) {
@@ -27,10 +35,13 @@ export class AuthService {
     return this.generateToken(user);
   }
 
+  //TODO: Types
   async registration(dto): Promise<any> {
     const { password, email } = dto;
     const candidate = await this.userService.findOneByEmail(email);
     if (candidate) {
+      //TODO: change exception
+
       throw new HttpException(
         'Користувач з даним email вже існує',
         HttpStatus.BAD_REQUEST,

@@ -8,7 +8,7 @@ export class UserRepository {
     @InjectModel(User)
     private readonly user: typeof User,
   ) {}
-
+  //TODO: remove this shit
   private readonly users2 = [
     {
       userId: 1,
@@ -36,12 +36,16 @@ export class UserRepository {
 
   async findOneByEmail(email): Promise<User> {
     return this.user.findOne({
-      where: { email: email },
+      where: { email },
       include: { all: true },
     });
   }
+  //TODO: Types
 
-  async findOneByName(username: string): Promise<User2 | undefined> {
-    return this.users2.find((user) => user.username === username);
+  async findOneByName(name: string): Promise<User2 | undefined> {
+    return this.user.findOne({
+      where: { name },
+      include: { all: true },
+    });
   }
 }

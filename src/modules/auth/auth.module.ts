@@ -17,7 +17,7 @@ import { PassportModule } from '@nestjs/passport';
     SequelizeModule.forFeature([User]),
     UsersModule,
     JwtModule.register({
-      privateKey: process.env.PRIVATE_KEY || 'SECRET_KEY2',
+      privateKey: process.env.PRIVATE_KEY || 'SECRET_KEY',
       signOptions: {
         expiresIn: '1h',
       },
